@@ -45,9 +45,16 @@ return
 
 ; 有道翻译 ps 必须将有道翻译设置为对应快捷键
 !y::
+Send ^d
+Send ^c
+return
+
+; vscode 函数跳转
+!t::
+Send ^d
 Send ^c
 sleep 100
-Send !^x
+Send !^r
 sleep 200
 Send ^v
 return
@@ -57,12 +64,17 @@ return
 :*:gitc::git clone +{Insert}
 ; bash命令
 :*:cdd::cd ~/Desktop
+:*:ddd::~/Desktop/
+:*:ccc::~/Desktop/d
+:*:gitpp::git push --no-verify
+:*:qqq::qshell.exe qupload ~/Desktop/qupload/
 :*:cpp::cp ~/Desktop ~/Desktop
 :*:rmm::rm -rf
 
 ; 更改大小写键位为 alt + Capslock , Capslock 修改为 Rshift
 !Capslock::Capslock
 Capslock::Rshift
+Rshift::ctrl
 
 ; 常用符号快捷键生成 如 < $ # * > + ^ - = ! {} () . , 
 >+h::send <
@@ -119,7 +131,6 @@ Capslock::Rshift
 IfWinActive, ahk_class SunAwtFrame
 {
     !w::send {Esc}
-    !e::send {Tab}
 }
 
 ; win10桌面切换 win+j，k 代表左右 ，win+3主要是打开 chrome 的 调试工具的选择器
@@ -141,8 +152,8 @@ Run C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
 Return
 
 ; 窗口置顶，半透明 -----------------------------------------------
-<Shift::
-    if (A_PriorHotKey = "<Shift" AND A_TimeSincePriorHotKey < 500)
+>Shift::
+    if (A_PriorHotKey = ">Shift" AND A_TimeSincePriorHotKey < 500)
     {
         WinGet ow, id, A
         WinTopToggle(ow)
